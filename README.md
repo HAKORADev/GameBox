@@ -1,353 +1,153 @@
-# GameBox v1.0.0 Stable Release
+# GameBox - AI-Powered Web Games Platform
 
-<div align="center">
+**Status: Discontinued / Open Source**  
+*This project is no longer actively developed. Feel free to fork, modify, and continue development!*
 
-![GameBox Logo](logo.png)
+## Overview
 
-**Your All-in-One Game Creation & Management Platform**
+GameBox is an All-in-One Web Games Creation & Management Platform with AI-Powered Game Generation. It allows users to browse, create, and manage web-based games through an intuitive PyQt5 interface, featuring an integrated AI assistant (GAMAI) that helps with game creation and editing.
 
-[Features](#features) • [Controls](#controls) • [AI Setup](#ai-setup) • [Installation](#installation)
+## Important Notice
 
----
+**Development on this project has stopped.** This repository is now open source for the community to continue development, fix issues, or use as a reference for their own projects. I will not be making further updates or fixes to this codebase.
 
-**Version:** 1.0.0 Stable  
-**Release:** January 2026  
-**Developer:** HAKORA
+## Features
 
-</div>
+- **Web Games Browser** - Browse and play web-based games in an integrated browser
+- **AI Game Generator (GAMAI)** - Create simple web games using natural language prompts
+- **Game Editor** - Edit game HTML/CSS/JS with syntax highlighting and live preview
+- **Favorites System** - Save and organize your favorite games
+- **Customizable UI** - Dark/light themes and customizable settings
+- **Cross-Platform** - Works on Windows, Linux, and macOS
 
----
+## Known Issues and Limitations
 
-## 🎮 About GameBox
+If you plan to continue development, here are known issues that need attention:
 
-GameBox is a powerful, feature-rich game launcher and development platform that combines game library management with AI-powered creation tools. Whether you want to play existing HTML5 games, create new ones from scratch, or let AI generate unique games for you, GameBox has you covered.
+### UI Issues
 
-This stable release represents months of development and testing, offering a robust solution for game enthusiasts and developers alike.
+- **Text Visibility in Windows Dark Mode** - When running on Windows with dark mode enabled, some text elements may have poor contrast or appear unreadable. The application was primarily tested on Linux and some Windows-specific theming was not fully implemented. Fixing this would require updating the PyQt5 stylesheets to handle Windows dark mode properly.
 
----
+### AI System Issues
 
-## ✨ Features
+- **GAMAI Uses Prompts Instead of LangChain** - The GAMAI AI assistant uses direct prompt engineering with Google's Gemini API rather than a proper LangChain integration. This means the AI responses are not structured, lack proper error handling, and the prompt templates are hardcoded as strings in the source code. For a more robust implementation, consider migrating to LangChain with structured output parsers.
 
-### 📚 Game Library Management
+- **Freezes During AI Generation** - The application freezes when GAMAI is generating a response or editing game code. This is because the AI operations run on the main GUI thread instead of a background thread. Any significant AI work will cause the interface to become unresponsive until completion. The fix involves moving all AI operations to QThread workers with proper signal/slot communication.
 
-- **Organized Collection:** Browse all your games in a clean, intuitive interface
-- **Grid & List Views:** Choose your preferred display mode
-- **Smart Search:** Filter games by name, category, or tags
-- **Category System:** Organize games with main categories (Action, Strategy, Puzzle, etc.) and sub-categories
-- **Game Metadata:** Automatic tracking of playtime, edit count, and play frequency
-- **Ratings & Feedback:** Rate games and add personal notes
+### Other Limitations
 
-### 🤖 AI-Powered Game Creation
+- **No Error Recovery** - If AI generation fails mid-way, there is no rollback mechanism and the partial game code may be corrupted
+- **Limited Game Templates** - Only a few basic game templates exist; expanding this requires manual prompt engineering
+- **No Game Sharing** - Generated games cannot be exported or shared with other users
+- **Browser Limitations** - The integrated web browser has limited capabilities and may not support all web features
 
-GameBox integrates with Google Gemini AI to offer revolutionary game creation features:
+## For Developers
 
-- **One-Shot Creation:** Describe your game idea and let AI build it instantly
-- **Surprise Me:** Get a random AI-generated game for inspiration
-- **For You:** AI analyzes your existing games and creates something tailored to your tastes
-- **AI Chat Assistant:** Get help with coding, game design, or troubleshooting
+This project was abandoned mid-development. Below is information to help you get started if you want to continue development.
 
-### 💻 Integrated Code Editor
-
-- **Full Code Editor:** Edit game HTML/CSS/JavaScript directly within GameBox
-- **Syntax Highlighting:** Color-coded code for better readability
-- **Live Preview:** See changes instantly as you edit
-- **Instant Editor Access:** Press F12 during gameplay for quick edits
-
-### 📦 Import & Export
-
-- **Import Games:** Bring in existing HTML5 games from your computer
-- **Export Games:** Share your creations as ZIP files
-- **ZIP Support:** Full ZIP file handling for game packages
-
-### 🎯 User Experience
-
-- **Fullscreen Modes:** Toggle between windowed and fullscreen for games (F1) or the app (F11)
-- **Keyboard Navigation:** Navigate efficiently with keyboard shortcuts
-- **Modern UI:** Clean, dark-themed interface that's easy on the eyes
-- **Fast Loading:** Optimized performance for quick access to your games
-
----
-
-## ⌨️ Controls
-
-### Main Interface
-
-| Key | Action |
-|-----|--------|
-| **Mouse Click** | Select buttons and games |
-| **Arrow Keys** | Navigate through menus |
-| **Scroll Wheel** | Cycle through options |
-| **Enter** | Confirm selection |
-| **Escape** | Return to previous menu / Exit app |
-
-### Keyboard Shortcuts
-
-| Key | Function |
-|-----|----------|
-| **F1** | Toggle Game Fullscreen/Windowed |
-| **F10** | Open AI Chat Assistant |
-| **F11** | Toggle App Fullscreen/Windowed |
-| **F12** | Open Instant Editor (during gameplay) |
-
-### Main Menu Buttons
-
-| Button | Description |
-|--------|-------------|
-| **+ (Plus)** | Create new game or import from file |
-| **Search** | Find and filter games |
-| **Grid/List** | Toggle view mode |
-| **AI** | Open GAMAI assistant menu |
-
----
-
-## 🤖 AI Setup
-
-GameBox features powerful AI integration using Google Gemini models. Follow these steps to enable AI features:
-
-### Step 1: Get Your API Key
-
-1. **Visit Google AI Studio:**
-   ```
-   https://aistudio.google.com/
-   ```
-
-2. **Sign In:** Use your Google account
-
-3. **Create API Key:**
-   - Click "Get API Key" in the left sidebar
-   - Create a new API key for GameBox
-   - **Copy the key immediately** (you can't view it again!)
-
-### Step 2: Configure GameBox
-
-1. Open GameBox
-2. Press **F10** or click the **AI button** (🤖)
-3. When prompted, paste your API key
-4. Click Save
-
-### Step 3: Test the AI
-
-1. Open AI Chat (F10)
-2. Send a test message
-3. If you get a response, you're all set!
-
----
-
-### 📊 Free Tier Information (2025)
-
-| Model | Free Tier | Rate Limits |
-|-------|-----------|-------------|
-| **Gemini 2.5 Flash** | ✅ Yes | 15 RPM, 1M TPM, 1,500 RPD |
-| **Gemini 2.5 Flash-Lite** | ✅ Yes | 15 RPM, 250K TPM, generous limits |
-| **Gemini 2.5 Pro** | ❌ Paid | Not included in free tier |
-
-**Recommendation:** Use **Gemini 2.5 Flash** or **Flash-Lite** for free access. Both offer excellent performance for game creation and coding assistance.
-
----
-
-### 🔑 API Key Management
-
-- Keep your API key private
-- Don't share it publicly
-- Generate new keys if compromised
-- Monitor usage in Google AI Studio dashboard
-
----
-
-## 📁 Installation
-
-### System Requirements
-
-- **Operating System:** Windows 10/11 (64-bit)
-- **Processor:** Any modern x64 processor
-- **Memory:** 4GB RAM minimum (8GB recommended)
-- **Storage:** 200MB free space
-- **Graphics:** DirectX 9 compatible GPU
-- **Internet:** Required for AI features and online gaming
-
-### Setup Instructions
-
-1. **Extract the Folder:**
-   - Right-click `GameBox_v1.0.0.zip`
-   - Select "Extract All..."
-   - Choose your desired location
-   - Keep the "GameBox" folder intact
-
-2. **Launch GameBox:**
-   - Open the extracted `GameBox` folder
-   - Double-click `GameBox.exe`
-   - If Windows SmartScreen warns, click "More info" → "Run anyway"
-
-3. **First Run:**
-   - The app will create necessary folders automatically
-   - Your games will be stored in `GameBox/Games/`
-   - AI configuration is saved in `GameBox/GAMAI/`
-
-### Directory Structure
-
-After first launch:
+### Project Structure
 
 ```
 GameBox/
-├── GameBox.exe          # Main application
-├── Games/               # Your game library (created automatically)
-│   ├── GameName1/
-│   ├── GameName2/
-│   └── ...
-├── GAMAI/               # AI configuration (created automatically)
-│   └── config.json
-└── exports/             # Exported games (created when you export)
+├── src/                    # Source code directory
+│   ├── gamebox.py         # Main application file (PyQt5 GUI)
+│   └── requirements.txt   # Python dependencies
+├── logo.png               # Application logo
+├── app_icon.ico          # Application icon for Windows
+├── gamebox.spec          # PyInstaller specification file
+├── GameBox.exe           # Pre-built Windows executable
+├── Instructions.txt      # Original user instructions
+└── LICENSE               # MIT License
 ```
 
----
+### Installation for Development
 
-## 🎯 Getting Started
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/HAKORADev/GameBox.git
+   cd GameBox
+   ```
 
-### Creating Your First Game
+2. **Create a virtual environment (recommended)**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-1. Click the **+ (Plus)** button
-2. Choose **"Create New Game"**
-3. Enter game name and version
-4. Select game type (2D/3D) and players (1/2)
-5. Choose categories (up to 5 main categories)
-6. Click Create
-7. Start coding in the editor!
+3. **Install dependencies**
+   ```bash
+   cd src
+   pip install -r requirements.txt
+   ```
 
-### Importing an Existing Game
+4. **Run the application**
+   ```bash
+   python gamebox.py
+   ```
 
-1. Click the **+ (Plus)** button
-2. Choose **"Import Game"**
-3. Select an HTML file from your computer
-4. Add metadata (name, version, categories)
-5. Click Import
+### Dependencies
 
-### Playing Games
+The project requires the following Python packages:
 
-1. Click on any game in your library
-2. Choose **"Play"** from the options menu
-3. Use **F1** for fullscreen
-4. Press **F12** to edit while playing
-5. Press **Escape** to return to menu
+- **PyQt5>=5.15.0** - Core GUI framework
+- **PyQtWebEngine>=5.15.0** - Web browser component
+- **keyboard>=0.13.5** - Keyboard input simulation
+- **pyperclip>=1.8.2** - Clipboard operations
+- **google-generativeai>=0.3.0** - Google Gemini AI integration
+- **Pillow>=9.0.0** - Image processing
+- **PyQt5-QScintilla>=2.14.0** - Code editor with syntax highlighting (optional, falls back gracefully)
+- **pyinstaller>=6.0.0** - For building executables
 
-### Using AI Features
+### Building the Executable
 
-1. Press **F10** to open AI Chat
-2. Ask questions, get coding help, or brainstorm ideas
-3. For AI game creation:
-   - Press **AI button** (🤖)
-   - Choose creation method (One-Shot, Surprise, For You)
-   - Follow the prompts
+To create a standalone executable:
 
----
+```bash
+cd src
+pyinstaller --onefile --windowed --icon=../app_icon.ico --name=GameBox gamebox.py
+```
 
-## 🔧 Troubleshooting
+Or use the included spec file:
 
-### Application Won't Start
+```bash
+pyinstaller gamebox.spec
+```
 
-**Issue:** GameBox crashes on launch (exit code 3)
+The executable will be created in the `dist/` folder.
 
-**Solutions:**
-1. Install Visual C++ Redistributable 2015-2022 (x64)
-   - Download: https://aka.ms/vs/17/release/vc_redist.x64.exe
-2. Run as Administrator
-3. Temporarily disable antivirus software
-4. Ensure Windows is up to date
+### Key Files and Components
 
-### AI Features Not Working
+- **gamebox.py** - Contains all GUI code, AI integration, and business logic (~850KB)
+- **gamebox.spec** - PyInstaller configuration for building the Windows executable
+- **logo.png** - Application logo used in the UI
+- **app_icon.ico** - Icon file for the Windows executable
 
-**Issue:** Can't connect to AI or getting errors
+### AI Integration Notes
 
-**Solutions:**
-1. Verify API key is correctly entered
-2. Check internet connection
-3. Ensure you're using a free-tier compatible model
-4. Check rate limits in Google AI Studio
+The GAMAI assistant uses Google's Gemini API directly. To configure AI features:
 
-### Games Not Loading
+1. Get a free API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+2. The API key is typically stored in a config file or entered through the UI
+3. The AI prompts are hardcoded in the source and can be modified there
 
-**Issue:** Games fail to start or show errors
+### Contributing
 
-**Solutions:**
-1. Ensure game has valid `index.html`
-2. Check game folder permissions
-3. Re-import the game
-4. Verify game files aren't corrupted
+Since this project is discontinued, the best way to contribute is to:
 
-### Slow Performance
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+5. Or simply use the code as a reference for your own projects
 
-**Issue:** App runs slowly or lags
+## License
 
-**Solutions:**
-1. Close unnecessary background programs
-2. Reduce number of games in library
-3. Use list view instead of grid view
-4. Ensure adequate system resources
+MIT License - See LICENSE file for details.
 
----
+## Credits
 
-## 📝 Notes
-
-### Privacy
-
-- Your API key is stored locally only
-- Game data stays on your computer
-- No telemetry or data collection
-- AI data processing follows Google's privacy policy
-
-### Updates
-
-- Check GitHub repository for updates
-- Back up your `Games/` folder before updates
-- Config files are preserved across updates
-
-### Data Location
-
-- **Games:** `GameBox/Games/`
-- **AI Config:** `GameBox/GAMAI/config.json`
-- **Exports:** `GameBox/exports/`
-- **Backups:** Regularly backup these folders
+Created by HAKORA. Built with PyQt5 and Google Gemini.
 
 ---
 
-## ⚖️ License
-
-**NO LICENSE** - All rights reserved.
-
-This software is provided as-is without any license. This means:
-
-- ✅ You may use the software for personal use
-- ❌ You may NOT redistribute without permission
-- ❌ You may NOT modify the software
-- ❌ You may NOT claim ownership
-- ❌ You may NOT use commercially without permission
-
-For permissions or inquiries, contact the developer.
-
----
-
-## 📬 Contact
-
-**Follow updates and development:**
-
-- **X (Twitter):** [@HAKORAdev](https://x.com/HAKORAdev)
-
-For bug reports, feature suggestions, or general inquiries, please reach out via X.
-
----
-
-## 🙏 Acknowledgments
-
-- **PyQt5** - Excellent GUI framework
-- **Google Gemini** - Powerful AI capabilities
-- **PyInstaller** - Reliable executable packaging
-- **Open Source Community** - Inspiration and resources
-
----
-
-<div align="center">
-
-**Thank you for using GameBox!**
-
-Built with ❤️ by HAKORA
-
-</div>
+**Final Note:** This project represented an experiment in combining web browsing, game creation, and AI assistance. While development has stopped, the code is here for anyone who finds it useful. The community has made incredible projects from similar starting points, and this one is waiting for someone to give it new life!
