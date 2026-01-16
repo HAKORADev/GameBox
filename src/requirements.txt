@@ -1,0 +1,22 @@
+# GameBox Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core GUI Framework
+PyQt5>=5.15.0
+PyQtWebEngine>=5.15.0
+
+# Keyboard simulation and clipboard
+keyboard>=0.13.5
+pyperclip>=1.8.2
+
+# AI Integration
+google-generativeai>=0.3.0
+
+# Image Processing
+Pillow>=9.0.0
+
+# Code Editor (optional - falls back gracefully if not installed)
+PyQt5-QScintilla>=2.14.0
+
+# Build Tool
+pyinstaller>=6.0.0
