@@ -57,6 +57,14 @@ except ImportError:
     HAS_PIL = False
     print("Warning: PIL (Pillow) not available. Vision features may be limited.")
 
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and PyInstaller onefile."""
+    try:
+        base_path = sys._MEIPASS  # PyInstaller temp folder
+    except Exception:
+        base_path = os.path.dirname(os.path.abspath(__file__))  # Dev mode
+    return os.path.join(base_path, relative_path)
+
 # --- AI Selection Cache System ---
 # Global variables to track the latest selected code for AI processing
 _SELECTION_CACHE = {
